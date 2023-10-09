@@ -1,0 +1,20 @@
+﻿@model Category
+<div class="editCategoryBlock">
+			<form method="post" asp-controller="Category" asp-action="EditCategory">
+				<input type="hidden" asp-for="Id"/>
+				<div class="modal-header">
+					<h4 class="modal-title">Edit Category</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label asp-for="Name"></label>
+						<input class="form-control" asp-for="Name">
+						<span class="text-danger" asp-validation-for="Name"></span>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" value="Cancel">
+					<input type="submit" class="btn btn-info" value="Save">
+				</div>
+			</form>
+</div>
