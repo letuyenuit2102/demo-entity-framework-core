@@ -64,18 +64,39 @@ deleteAllCategory.addEventListener("click", e => {
     })
     var ids = Array.from(arrayChecked)
     var group = { 'ids': ids };
-    $.ajax({
-        dataType: 'json',
-        type: "POST",
-        url: "/Category/DeleteMultipleCategory",
-        data: group,
-        success: function (data) {
-            console.log("output : " + JSON.stringify(data));
-        },
-        error: function (data) {
-            console.log("error : " + JSON.stringify(data));
-        },
-    });
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                dataType: 'json',
+                type: "POST",
+                url: "/Category/DeleteMultipleCategory",
+                data: group,
+                success: function (data) {
+                    ids.forEach(id => {
+                        console.log(id)
+                        document.querySelector(`.tr-${id}`).style.display = "none"
+                    })
+                    document.getElementById("selectAll").checked = false
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                },
+                error: function (data) {
+                    console.log("error : " + JSON.stringify(data));
+                },
+            });
+        }
+    })
     //let post = JSON.stringify(group)
     //const xmlhttp = new XMLHttpRequest();
     //xmlhttp.onload = function () {
