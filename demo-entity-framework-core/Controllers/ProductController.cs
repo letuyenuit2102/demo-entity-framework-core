@@ -63,5 +63,28 @@ namespace demo_entity_framework_core.Controllers
 			_unitOfWork.Save();
 			return Json(new { });
 		}
+
+		public IActionResult EditProduct (Guid id)
+		{
+			var product = _unitOfWork.Product.Get(u => u.Id == id);
+			var categories = _unitOfWork.Category.GetAll();
+			EditProductVM editProductVM = new EditProductVM()
+			{
+				product = product,
+				categories = categories.Select(u => new SelectListItem
+				{
+					Text = u.Name,
+					Value = u.Id.ToString(),
+				})
+			};
+			return View(editProductVM);
+		}
+		[HttpPost]
+		public IActionResult EditProduct(Product product)
+		{
+			_unitOfWork.Product.Update(product);
+			_unitOfWork.Save();
+			return RedirectToAction("Index", "Product");
+		}
 	}
 }

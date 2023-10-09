@@ -47,7 +47,7 @@
 							<td>@Model.products[i].Price</td>
 							<td>@Model.products[i].Category.Name</td>
 							<td>
-								<a asp-controller="Category" asp-action="EditCategory" asp-route-id="@Model.products[i].Id" id="editCategory" data-id="@Model.products[i].Id" class="edit"><i class="material-icons" title="Edit">&#xE254;</i></a>
+								<a asp-controller="Product" asp-action="EditProduct" asp-route-id="@Model.products[i].Id" id="editCategory" data-id="@Model.products[i].Id" class="edit"><i class="material-icons" title="Edit">&#xE254;</i></a>
 								<a href="" id="deleteCategory" data-id="@Model.products[i].Id" class="delete"><i class="material-icons" title="Delete">&#xE872;</i></a>
 							</td>
 						</tr>
